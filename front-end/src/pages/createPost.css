@@ -1,0 +1,9 @@
+#title {
+    text-align: center;
+    font-size: larger;
+}
+#infoEdit {
+    margin: auto;
+    max-width: fit-content;
+    padding-bottom: 100px;
+}
