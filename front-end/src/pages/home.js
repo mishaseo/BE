@@ -38,13 +38,13 @@ function Home() {
             <Header />
             <div className={classes.root}>
                 <GridList
-                    cellHeight={300}
+                    cellHeight={400}
                     spacing={30}
                     className={classes.gridList}
                 >
                     <GridListTile
                         key="Subheader"
-                        cols={4}
+                        cols={2}
                         style={{ height: "auto" }}
                     >
                         <ListSubheader component="div"></ListSubheader>
