@@ -2,8 +2,16 @@
     text-align: center;
     margin: auto;
     max-width: fit-content;
-    padding-top: 50%;
-    color: white;
+    padding-top: 20%;
+    color: darkblue;
+    font-weight: bold;
+}
+#signUpForm {
+    text-align: center;
+    margin: auto;
+    max-width: fit-content;
+    padding-top: 10%;
+    color: darkblue;
     font-weight: bold;
 }
 
@@ -13,7 +21,7 @@
 }
 
 .btn-primary:hover {
-    background-color: pink !important;
+    background-color: darkblue !important;
 }
 
 #href {
@@ -21,5 +29,5 @@
 }
 
 #href:hover {
-    color: pink !important;
+    color: darkblue !important;
 }

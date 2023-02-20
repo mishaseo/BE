@@ -6,7 +6,7 @@ function header() {
     return (
         <Navbar expand="lg" variant="light" id="bar">
             <Container>
-                <Navbar.Brand href="#">Food Exchange</Navbar.Brand>
+                <Navbar.Brand href={"/home"}>FetchAPet</Navbar.Brand>
             </Container>
         </Navbar>
     );

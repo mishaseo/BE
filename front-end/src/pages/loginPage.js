@@ -3,8 +3,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Header from "../header";
 import { useEffect, useState } from "react";
-import image from "./img_0.jpg";
-import Container from "react-bootstrap/esm/Container";
+import image from "./img_1.jpg";
 
 function LoginPage() {
     return (
@@ -35,7 +34,7 @@ function LoginPage() {
                 </Button>
                 <br></br>
                 <br></br>
-                <a href={"/signUp"} id="href">
+                <a href={"/"} id="href">
                     {" "}
                     New user? Sign up
                 </a>
