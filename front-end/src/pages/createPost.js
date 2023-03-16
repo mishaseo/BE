@@ -16,6 +16,7 @@ function CreatePost() {
     const [city, setCity] = useState("");
     const [contact, setContact] = useState("");
     const [description, setDescription] = useState("");
+    const [petCategory, setPetCategory] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
 
     //---------------Form validation--------------------------------
@@ -25,6 +26,7 @@ function CreatePost() {
         event.preventDefault();
         let newData = {
             petName: petName,
+            petCategory: petCategory,
             petAge: petAge,
             state: state,
             country: country,
@@ -70,6 +72,29 @@ function CreatePost() {
                                 }
                             />
                         </Form.Group>
+                        <Form.Group controlId="formBasicSelect">
+                            <Form.Label>Select Pet Type</Form.Label>
+                            <Form.Control
+                                as="select"
+                                value={petCategory}
+                                required
+                                onChange={(e) => {
+                                    console.log(
+                                        "e.target.value",
+                                        e.target.value
+                                    );
+                                    setPetCategory(e.target.value);
+                                }}
+                            >
+                                <option></option>
+                                <option value="dog">Dog</option>
+                                <option value="cat">Cat</option>
+                                <option value="bird">Bird</option>
+                                <option value="fish">Fish</option>
+                                <option value="rabbit">Rabbit</option>
+                                <option value="other">Other</option>
+                            </Form.Control>
+                        </Form.Group>
                         <Form.Group>
                             <Form.Label>Pet Name</Form.Label>
                             <Form.Control
@@ -107,7 +132,7 @@ function CreatePost() {
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>County</Form.Label>
+                            <Form.Label>Country</Form.Label>
                             <Form.Control
                                 type="text"
                                 placeholder=" Country"

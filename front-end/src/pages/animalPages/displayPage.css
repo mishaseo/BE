@@ -1,0 +1,13 @@
+#heading {
+    color: black;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 3px 3px #a0bff0;
+}
+#headingBox {
+    border-bottom: 10px;
+}
+
+#animalCard {
+    align-items: center !important;
+}

@@ -51,7 +51,7 @@ function Home() {
                     </GridListTile>
                     {homeTileData.map((tile) => (
                         <GridListTile key={tile.img}>
-                            <a href="/">
+                            <a href="/dogs">
                                 <img src={tile.img} alt={tile.title} />
                             </a>
                             <GridListTileBar

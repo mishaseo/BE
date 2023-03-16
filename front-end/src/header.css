@@ -1,3 +1,7 @@
 #bar {
     background-color: #a0bff0 !important;
 }
+
+#searchButton:hover {
+    background-color: darkblue !important;
+}
