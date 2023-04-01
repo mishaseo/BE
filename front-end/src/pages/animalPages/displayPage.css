@@ -9,5 +9,7 @@
 }
 
 #animalCard {
-    align-items: center !important;
+    text-align: center;
+    margin: auto;
+    max-width: fit-content;
 }

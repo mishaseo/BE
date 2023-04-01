@@ -11,15 +11,16 @@ import Header from "../header";
 function CreatePost() {
     const [petName, setPetName] = useState("");
     const [petAge, setPetAge] = useState("");
-    const [state, setState] = useState("");
-    const [country, setCountry] = useState("");
-    const [city, setCity] = useState("");
+    const [petState, setPetState] = useState("");
+    const [petCountry, setPetCountry] = useState("");
+    const [petCity, setPetCity] = useState("");
     const [contact, setContact] = useState("");
     const [description, setDescription] = useState("");
     const [petCategory, setPetCategory] = useState("");
     const [selectedImage, setSelectedImage] = useState(null);
 
     //---------------Form validation--------------------------------
+    const jwtToken = localStorage.getItem("token");
 
     const navigate = useNavigate();
     const handleSubmit = (event) => {
@@ -28,24 +29,26 @@ function CreatePost() {
             petName: petName,
             petCategory: petCategory,
             petAge: petAge,
-            state: state,
-            country: country,
-            city: city,
+            petCity: petCity,
+            petState: petState,
+            petCountry: petCountry,
             contact: contact,
             description: description,
         };
 
-        // axios
-        //     // post new user info to server
-        //     .post(`${process.env.REACT_APP_URL}/editInfo`, newData, {
-        //         withCredentials: true,
-        //     })
-        //     .then((response) => {
-        //         console.log(response.data);
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
+        axios
+            // post new post info to server
+            .post(`${process.env.REACT_APP_URL}/createPost`, {
+                headers: { Authorization: `JWT ${jwtToken}` }, // pass the token, if any, to the server
+                newData,
+            })
+            .then((response) => {
+                console.log(response.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        //Navigate to the successful post
         navigate("/");
     };
 
@@ -66,7 +69,7 @@ function CreatePost() {
                             <Form.Label>Upload Pet Image</Form.Label>
                             <Form.Control
                                 type="file"
-                                required
+                                //required
                                 onChange={(e) =>
                                     setSelectedImage(e.target.value)
                                 }
@@ -100,6 +103,7 @@ function CreatePost() {
                             <Form.Control
                                 type="text"
                                 placeholder=" Pet Name"
+                                value={petName}
                                 required
                                 onChange={(e) => setPetName(e.target.value)}
                             />
@@ -109,6 +113,7 @@ function CreatePost() {
                             <Form.Control
                                 type="text"
                                 placeholder=" Pet Age"
+                                value={petAge}
                                 required
                                 onChange={(e) => setPetAge(e.target.value)}
                             />
@@ -117,33 +122,37 @@ function CreatePost() {
                             <Form.Label>City</Form.Label>
                             <Form.Control
                                 type="text"
+                                value={petCity}
                                 placeholder="City"
                                 required
-                                onChange={(e) => setCity(e.target.value)}
+                                onChange={(e) => setPetCity(e.target.value)}
                             />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>State</Form.Label>
                             <Form.Control
                                 type="text"
+                                value={petState}
                                 placeholder=" State"
                                 required
-                                onChange={(e) => setState(e.target.value)}
+                                onChange={(e) => setPetState(e.target.value)}
                             />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Country</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder=" Country"
+                                value={petCountry}
+                                placeholder="Country"
                                 required
-                                onChange={(e) => setCountry(e.target.value)}
+                                onChange={(e) => setPetCountry(e.target.value)}
                             />
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Contact Info</Form.Label>
                             <Form.Control
                                 type="text"
+                                value={contact}
                                 placeholder=" Email, Phone number, etc."
                                 required
                                 onChange={(e) => setContact(e.target.value)}
@@ -153,6 +162,7 @@ function CreatePost() {
                             <Form.Label>Description of Pet</Form.Label>
                             <Form.Control
                                 as="textarea"
+                                value={description}
                                 onChange={(e) => setDescription(e.target.value)}
                             />
                         </Form.Group>
