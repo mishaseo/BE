@@ -6,6 +6,8 @@ passport.use(jwtStrategy);
 //using express's router
 const { Router } = require("express");
 
+//used in createpost for image upload
+const upload = require("../utils/multer");
 //using our controller.js file
 const controller = require("./controller");
 //router object
@@ -29,6 +31,23 @@ router.post(
     passport.authenticate("jwt", { session: false }),
     controller.createPost
 );
+
+router.post(
+    "/uploadPetImage/:post_id",
+    passport.authenticate("jwt", { session: false }),
+    upload.single("image"),
+    controller.uploadImage
+);
+
+router.get(
+    "/myPosts",
+    passport.authenticate("jwt", { session: false }),
+    controller.myPosts
+);
+
+router.get("/pets/:petCategory", controller.getPet);
+
+router.post("/deletepost/:post_id", controller.deletePost);
 
 //creating router object and adding routes to it
 //going to export this router and import in server.js

@@ -9,6 +9,9 @@ const passport = require("passport");
 const { jwtOptions, jwtStrategy } = require("../jwt-config"); // import setup options for using JWT in passport
 passport.use(jwtStrategy);
 
+//cloudinary  for image upload
+const cloudinary = require("../utils/cloudinary");
+
 const getUser = (req, res) => {
     const id = parseInt(req.params.id);
     //has a callback (takes in error and results)
@@ -18,7 +21,7 @@ const getUser = (req, res) => {
     });
 };
 
-//SIGNUP USER
+//-----------------------------SIGNUP USER---------------------------------
 const signup = (req, res) => {
     const { firstname, lastname, email, password } = req.body;
     //check if email exists
@@ -41,7 +44,7 @@ const signup = (req, res) => {
     });
 };
 
-//LOGIN USER
+//---------------------------------LOGIN USER---------------------------------
 const login = (req, res) => {
     const { email, password } = req.body;
     // console.log(email);
@@ -67,7 +70,7 @@ const login = (req, res) => {
     );
 };
 
-//POSTAPET
+//---------------------------------------POSTAPET--------------------------------------
 const createPost = (req, res) => {
     const {
         petName,
@@ -95,14 +98,84 @@ const createPost = (req, res) => {
             req.user.id,
         ],
         (error, results) => {
-            if (error) {
-                console.log(error);
-                throw error;
-            } else res.status(201).send("Success");
+            if (error) throw error;
+            else {
+                //console.log(results);
+                res.status(200).json(results.rows[0]);
+            }
         }
     );
 };
 
+//---------------------------------------UPLOAD IMAGE-------------------------------------
+const uploadImage = async (req, res) => {
+    const post_id = req.params.post_id;
+    //debugging
+    console.log("post_id ", post_id);
+    console.log("file ", req.file);
+    if (req.file) {
+        try {
+            // Upload image to cloudinary
+            const result = await cloudinary.uploader.upload(req.file.path, {
+                folder: "user_pet_uploads",
+                use_filename: true,
+            });
+            //debugging
+            console.log("result cloudinary ", result.secure_url);
+            // Create new user
+
+            // let user = new User({
+            //     name: req.body.name,
+            //     profile_img: result.secure_url,
+            //     cloudinary_id: result.public_id,
+            // });
+            pool.query(
+                queries.uploadImage,
+                [result.secure_url, post_id],
+                (error, results) => {
+                    if (error) throw error;
+                    else res.status(200).send("Success");
+                }
+            );
+        } catch (err) {
+            console.log(err);
+        }
+    } else {
+        pool.query(
+            queries.uploadImage,
+            [
+                "https://res.cloudinary.com/mishaprojectcloud/image/upload/v1680460380/fetchapet/user_pet_uploads/tempimage_im8mtp.webp",
+                post_id,
+            ],
+            (error, results) => {
+                if (error) throw error;
+                else res.status(200).send("Success");
+            }
+        );
+    }
+};
+
+//---------------------------------GET PET POSTS BY CATEGORY---------------------------------
+const getPet = (req, res) => {
+    const petCategory = req.params.petCategory;
+    //console.log(petCategory);
+    pool.query(queries.getPet, [petCategory], (error, results) => {
+        if (error) throw error;
+        else res.status(200).json(results.rows);
+    });
+};
+
+//---------------------------------GET USER'S POSTS---------------------------------
+const myPosts = (req, res) => {
+    //need to get id
+    user_id = req.user.id;
+    pool.query(queries.myPosts, [user_id], (error, results) => {
+        if (error) throw error;
+        else res.status(200).json(results.rows);
+    });
+};
+
+//---------------------------------check if logged in (used in header)---------------------------------
 const checkLogin = (req, res) => {
     // our jwt passport config will send error responses to unauthenticated users will
     // so we only need to worry about sending data to properly authenticated users!
@@ -117,10 +190,38 @@ const checkLogin = (req, res) => {
     });
 };
 
+//---------------------------------DELETE A POST---------------------------------
+const deletePost = (req, res) => {
+    post_id = req.params.post_id;
+    pool.query(queries.deletePost, [post_id], (error, results) => {
+        //console.log("here we are trying to delete");
+        if (error) throw error;
+        else {
+            // console.log("success");
+            res.status(200).send("success");
+        }
+    });
+};
+
+// const getPostInfo = (req, res) => {
+//     post_id = req.params.post_id;
+//     pool.quers(queries.getPostInfo, [post_id], (error, results) => {
+//         if (error) throw error;
+//         else {
+//             // console.log("success");
+//             res.status(200).json(results.rows[0]);
+//         }
+//     });
+// };
+
 module.exports = {
     getUser,
     signup,
     login,
     checkLogin,
     createPost,
+    getPet,
+    myPosts,
+    deletePost,
+    uploadImage,
 };

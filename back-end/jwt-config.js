@@ -12,7 +12,7 @@ jwtOptions.secretOrKey = "fetchapetpassword";
 //console.log(jwtOptions); // debug to make sure the secret from the .env file is loaded correctly
 // passport can work with many authentication systems... here we are setting some middleware code for using JWT that we'll pass to passport to use
 const jwtStrategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
-    console.log("JWT payload received", JSON.stringify(jwt_payload)); // debugging
+    //console.log("JWT payload received", JSON.stringify(jwt_payload)); // debugging
 
     // try to find a matching user in our "database"
     let user;

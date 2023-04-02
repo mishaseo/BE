@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import AnimalCard from "../../components/animalCard";
+import AnimalCard from "../components/animalCard";
 import axios from "axios";
-import Header from "../../header";
-import "./displayPage.css";
+import Header from "../header";
+import "./animalPages/displayPage.css";
 
-function AnimalPage(props) {
+function MyPosts() {
     const [data, setData] = useState([]);
-    let category =
-        props.animal.charAt(0).toUpperCase() + props.animal.slice(1) + "s";
-    if (props.animal === "fish" || props.animal === "other") {
-        category = props.animal.charAt(0).toUpperCase() + props.animal.slice(1);
-    }
+    const jwtToken = localStorage.getItem("token");
+
     async function fetchData() {
         // axios is a 3rd-party module for fetching data from servers
         axios
-            .get(`${process.env.REACT_APP_URL}/pets/${props.animal}`)
+            .get(`${process.env.REACT_APP_URL}/myPosts`, {
+                headers: { Authorization: `JWT ${jwtToken}` },
+            })
             .then((res) => {
                 if (res.status === 200) {
                     console.log("here");
@@ -33,18 +32,14 @@ function AnimalPage(props) {
         <div>
             <Header />
             <div id="headingBox">
-                <h1 id="heading">{category} For Sale</h1>
+                <h1 id="heading">My Posts</h1>
             </div>
             <section id="animalCard">
                 {data.map((item) => (
-                    <AnimalCard
-                        key={item.id}
-                        details={item}
-                        type="animalPage"
-                    />
+                    <AnimalCard key={item.id} details={item} type="mypost" />
                 ))}
             </section>
         </div>
     );
 }
-export default AnimalPage;
+export default MyPosts;

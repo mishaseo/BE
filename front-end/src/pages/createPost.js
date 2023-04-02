@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Header from "../header";
 
@@ -17,9 +16,9 @@ function CreatePost() {
     const [contact, setContact] = useState("");
     const [description, setDescription] = useState("");
     const [petCategory, setPetCategory] = useState("");
-    const [selectedImage, setSelectedImage] = useState(null);
+    //const [petId, setPetId] = useState(0);
+    //const [selectedImage, setSelectedImage] = useState(null);
 
-    //---------------Form validation--------------------------------
     const jwtToken = localStorage.getItem("token");
 
     const navigate = useNavigate();
@@ -38,18 +37,27 @@ function CreatePost() {
 
         axios
             // post new post info to server
-            .post(`${process.env.REACT_APP_URL}/createPost`, {
-                headers: { Authorization: `JWT ${jwtToken}` }, // pass the token, if any, to the server
+            .post(
+                `${process.env.REACT_APP_URL}/createPost`,
                 newData,
-            })
+
+                {
+                    headers: { Authorization: `JWT ${jwtToken}` }, // pass the token, if any, to the server
+                }
+            )
             .then((response) => {
-                console.log(response.data);
+                console.log(response.data.id);
+                const info = { petId: response.data.id };
+                navigate("/petImageUpload", { state: { info } });
             })
             .catch((err) => {
                 console.log(err);
             });
-        //Navigate to the successful post
-        navigate("/");
+
+        // navigate({
+        //     pathname: "/petImageUpload",
+        //     state: { info }, // your data array of objects
+        // });
     };
 
     //---------------------------returning------------------------------
@@ -65,16 +73,17 @@ function CreatePost() {
                 {/*------------------------------Form section------------------------*/}
                 <div id="infoEdit">
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="formFile" className="mb-3">
+                        {/* <Form.Group controlId="formFile" className="mb-3">
                             <Form.Label>Upload Pet Image</Form.Label>
                             <Form.Control
                                 type="file"
                                 //required
-                                onChange={(e) =>
-                                    setSelectedImage(e.target.value)
-                                }
+                                onChange={(e) => {
+                                    console.log(e.target.files[0]);
+                                    setSelectedImage(e.target.files[0]);
+                                }}
                             />
-                        </Form.Group>
+                        </Form.Group> */}
                         <Form.Group controlId="formBasicSelect">
                             <Form.Label>Select Pet Type</Form.Label>
                             <Form.Control
@@ -82,10 +91,6 @@ function CreatePost() {
                                 value={petCategory}
                                 required
                                 onChange={(e) => {
-                                    console.log(
-                                        "e.target.value",
-                                        e.target.value
-                                    );
                                     setPetCategory(e.target.value);
                                 }}
                             >
@@ -133,7 +138,7 @@ function CreatePost() {
                             <Form.Control
                                 type="text"
                                 value={petState}
-                                placeholder=" State"
+                                placeholder=" State (Example: NY)"
                                 required
                                 onChange={(e) => setPetState(e.target.value)}
                             />
@@ -143,7 +148,7 @@ function CreatePost() {
                             <Form.Control
                                 type="text"
                                 value={petCountry}
-                                placeholder="Country"
+                                placeholder="Country (Example: United States)"
                                 required
                                 onChange={(e) => setPetCountry(e.target.value)}
                             />
@@ -151,7 +156,7 @@ function CreatePost() {
                         <Form.Group>
                             <Form.Label>Contact Info</Form.Label>
                             <Form.Control
-                                type="text"
+                                as="textarea"
                                 value={contact}
                                 placeholder=" Email, Phone number, etc."
                                 required
@@ -168,7 +173,7 @@ function CreatePost() {
                         </Form.Group>
                         <br></br>
                         <Button type="submit" variant="primary">
-                            Post
+                            Continue
                         </Button>
                     </Form>
                 </div>

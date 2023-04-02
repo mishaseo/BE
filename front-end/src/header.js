@@ -49,7 +49,7 @@ function Header() {
                         <Nav>
                             <Nav.Link href={"/"}>Home</Nav.Link>
                             <Nav.Link href={"/createPost"}>Post A Pet</Nav.Link>
-
+                            <Nav.Link href={"/myPosts"}>My Posts</Nav.Link>
                             <Nav.Link href="/aboutUs">About Us</Nav.Link>
                             <Nav.Link
                                 onClick={() => {
