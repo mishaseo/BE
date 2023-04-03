@@ -14,11 +14,11 @@
 }
 h3 {
     text-decoration: underline #a0bff0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #image {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding: 10px 10px 10px 10px;
     margin: auto;
     max-width: fit-content;
 }

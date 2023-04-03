@@ -7,6 +7,11 @@ import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
 import homeTileData from "./homeTileData";
 import Header from "../header";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { useEffect, useState } from "react";
+import "./home.css";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -31,44 +36,66 @@ const useStyles = makeStyles((theme) => ({
 
 function Home() {
     const classes = useStyles();
+    const [petSearch, setPetSearch] = useState("");
 
+    const navigate = useNavigate();
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const petSearchInfo = { info: petSearch };
+        navigate("/searchResults", { state: { petSearchInfo } });
+    };
     return (
         <div>
-            {" "}
             <Header />
-            <div className={classes.root}>
-                <GridList
-                    cellHeight={400}
-                    spacing={30}
-                    className={classes.gridList}
-                >
-                    <GridListTile
-                        key="Subheader"
-                        cols={2}
-                        style={{ height: "auto" }}
+            <Form onSubmit={handleSubmit} id="search" className="d-flex">
+                <Form.Control
+                    type="search"
+                    placeholder="Search for a pet"
+                    className="me-2"
+                    value={petSearch}
+                    aria-label="Search"
+                    onChange={(event) => setPetSearch(event.target.value)}
+                />
+
+                <Button id="searchButton" variant="outline-success">
+                    Search
+                </Button>
+            </Form>{" "}
+            <div id="grid">
+                <div className={classes.root}>
+                    <GridList
+                        cellHeight={400}
+                        spacing={30}
+                        className={classes.gridList}
                     >
-                        <ListSubheader component="div"></ListSubheader>
-                    </GridListTile>
-                    {homeTileData.map((tile) => (
-                        <GridListTile key={tile.img}>
-                            <a href={tile.link}>
-                                <img src={tile.img} alt={tile.title} />
-                            </a>
-                            <GridListTileBar
-                                title={tile.title}
-                                actionIcon={
-                                    <IconButton
-                                        aria-label={`info about ${tile.title}`}
-                                        className={classes.icon}
-                                        href={tile.info}
-                                    >
-                                        <InfoIcon />
-                                    </IconButton>
-                                }
-                            />
+                        <GridListTile
+                            key="Subheader"
+                            cols={2}
+                            style={{ height: "auto" }}
+                        >
+                            <ListSubheader component="div"></ListSubheader>
                         </GridListTile>
-                    ))}
-                </GridList>
+                        {homeTileData.map((tile) => (
+                            <GridListTile key={tile.img}>
+                                <a href={tile.link}>
+                                    <img src={tile.img} alt={tile.title} />
+                                </a>
+                                <GridListTileBar
+                                    title={tile.title}
+                                    actionIcon={
+                                        <IconButton
+                                            aria-label={`info about ${tile.title}`}
+                                            className={classes.icon}
+                                            href={tile.info}
+                                        >
+                                            <InfoIcon />
+                                        </IconButton>
+                                    }
+                                />
+                            </GridListTile>
+                        ))}
+                    </GridList>
+                </div>
             </div>
         </div>
     );

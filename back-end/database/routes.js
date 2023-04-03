@@ -49,6 +49,8 @@ router.get("/pets/:petCategory", controller.getPet);
 
 router.post("/deletepost/:post_id", controller.deletePost);
 
+router.get("/searchResults/:searchQuery", controller.searchBar);
+
 //creating router object and adding routes to it
 //going to export this router and import in server.js
 module.exports = router;

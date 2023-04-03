@@ -13,6 +13,8 @@ import OtherPage from "./pages/animalPages/otherPage";
 import MyPosts from "./pages/myPosts";
 import PetInfoPage from "./pages/animalPages/petInfoPage";
 import UploadImage from "./pages/uploadImage";
+import SearchResults from "./pages/searchResults";
+import AboutUs from "./pages/aboutus/aboutUs";
 function App() {
     return (
         <div>
@@ -33,6 +35,8 @@ function App() {
                     <Route path="/myposts" element={<MyPosts />} />
                     <Route path="/petInfo" element={<PetInfoPage />} />
                     <Route path="/petImageUpload" element={<UploadImage />} />
+                    <Route path="/searchResults" element={<SearchResults />} />
+                    <Route path="/aboutus" element={<AboutUs />} />
                 </Routes>
             </Router>
         </div>

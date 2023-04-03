@@ -15,13 +15,7 @@ function PetInfoPage() {
         <div>
             <Header />
             <div id="image">
-                <Image
-                    src={details.petimage}
-                    roundedCircle
-                    border="5px solid black"
-                    height="300"
-                    width="300"
-                />
+                <Image src={details.petimage} />
             </div>
             <div id="headingBox">
                 <h1 id="heading">{details.petname}</h1>

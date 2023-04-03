@@ -203,6 +203,17 @@ const deletePost = (req, res) => {
     });
 };
 
+//--------------------------FETCH SEARCH DATA------------------------
+const searchBar = (req, res) => {
+    let query = req.params.searchQuery;
+    query = "%" + query + "%";
+    pool.query(queries.searchBar, [query], (error, results) => {
+        if (error) throw error;
+        else {
+            res.status(200).json(results.rows);
+        }
+    });
+};
 // const getPostInfo = (req, res) => {
 //     post_id = req.params.post_id;
 //     pool.quers(queries.getPostInfo, [post_id], (error, results) => {
@@ -224,4 +235,5 @@ module.exports = {
     myPosts,
     deletePost,
     uploadImage,
+    searchBar,
 };

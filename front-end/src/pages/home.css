@@ -1,0 +1,14 @@
+#search {
+    padding-top: 20px;
+    margin: auto;
+    max-width: 50%;
+}
+
+#searchButton:hover {
+    background-color: darkblue !important;
+}
+
+#grid {
+    margin: auto;
+    max-width: fit-content;
+}

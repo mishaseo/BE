@@ -36,6 +36,10 @@ function AnimalCard(props) {
             <Card.Body>
                 <Card.Title>{props.details.petname}</Card.Title>
                 <Card.Text>{props.details.description}</Card.Text>
+                <Card.Text>
+                    Location: {props.details.petcity}, {props.details.petstate}
+                </Card.Text>
+                <Card.Text>{props.details.petcountry}</Card.Text>
                 {button_type ? (
                     <Button
                         onClick={() => deletePost(props.details.id)}

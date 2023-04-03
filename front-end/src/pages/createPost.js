@@ -72,6 +72,10 @@ function CreatePost() {
 
                 {/*------------------------------Form section------------------------*/}
                 <div id="infoEdit">
+                    <p>
+                        Please enter in your info carefully to make sure that
+                        your pet can easily be fetched by a loving home!{" "}
+                    </p>
                     <Form onSubmit={handleSubmit}>
                         {/* <Form.Group controlId="formFile" className="mb-3">
                             <Form.Label>Upload Pet Image</Form.Label>
@@ -138,8 +142,7 @@ function CreatePost() {
                             <Form.Control
                                 type="text"
                                 value={petState}
-                                placeholder=" State (Example: NY)"
-                                required
+                                placeholder=" If applicable (Example: NY)"
                                 onChange={(e) => setPetState(e.target.value)}
                             />
                         </Form.Group>
