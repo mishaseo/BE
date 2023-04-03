@@ -52,7 +52,9 @@ function Header() {
                     {logged ? (
                         <Nav>
                             <b>
-                                <Nav.Link>Hello {name}! </Nav.Link>
+                                <i>
+                                    <Nav.Link>Hello {name}! </Nav.Link>
+                                </i>
                             </b>
                             <Nav.Link href={"/"}>Home</Nav.Link>
                             <Nav.Link href={"/createPost"}>Post A Pet</Nav.Link>
