@@ -13,7 +13,7 @@ function Header() {
     const jwtToken = localStorage.getItem("token"); // the JWT token, if we have already received one and stored it in localStorage
     //console.log(`JWT token: ${jwtToken}`); // debugging
     const [logged, setLogged] = useState(jwtToken && true);
-
+    const [name, setName] = useState("");
     //FUNCTION TO LOGOUT
     const logout = () => {
         localStorage.removeItem("token");
@@ -29,6 +29,9 @@ function Header() {
                 //if we get status 200, then user is signed in
                 if (res.data.success === true) {
                     setLogged(true);
+                    setName(
+                        res.data.user.firstname + " " + res.data.user.lastname
+                    );
                 } else {
                     setLogged(false);
                 }
@@ -42,11 +45,15 @@ function Header() {
                 <Navbar.Brand href={"/"}>
                     <img src={Logo} height="200" alt="MealHub" />
                 </Navbar.Brand>
+
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto"> </Nav>
                     {logged ? (
                         <Nav>
+                            <b>
+                                <Nav.Link>Hello {name}! </Nav.Link>
+                            </b>
                             <Nav.Link href={"/"}>Home</Nav.Link>
                             <Nav.Link href={"/createPost"}>Post A Pet</Nav.Link>
                             <Nav.Link href={"/myPosts"}>My Posts</Nav.Link>

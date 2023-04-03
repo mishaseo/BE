@@ -184,6 +184,8 @@ const checkLogin = (req, res) => {
         success: true,
         user: {
             id: req.user.id,
+            firstname: req.user.firstname,
+            lastname: req.user.lastname,
         },
         message:
             "Congratulations: you have accessed this route because you have a valid JWT token!",
