@@ -227,6 +227,15 @@ const searchBar = (req, res) => {
 //     });
 // };
 
+const petInfo = (req, res) => {
+    const id = req.params.petId;
+    //console.log(petCategory);
+    pool.query(queries.getPetInfo, [id], (error, results) => {
+        if (error) throw error;
+        else res.status(200).json(results.rows[0]);
+    });
+};
+
 module.exports = {
     getUser,
     signup,
@@ -238,4 +247,5 @@ module.exports = {
     deletePost,
     uploadImage,
     searchBar,
+    petInfo,
 };

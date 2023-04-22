@@ -30,7 +30,7 @@ function AnimalCard(props) {
     }
     return (
         <Card style={{ width: "22rem" }}>
-            <Link to="/petInfo" state={{ details: props.details }}>
+            <Link to={`/petInfo/${props.details.id}`}>
                 <Card.Img variant="top" src={props.details.petimage} />
             </Link>
             <Card.Body>
@@ -49,7 +49,7 @@ function AnimalCard(props) {
                         Delete
                     </Button>
                 ) : (
-                    <Link to="/petInfo" state={{ details: props.details }}>
+                    <Link to={`/petInfo/${props.details.id}`}>
                         <Button variant="primary">More Info</Button>
                     </Link>
                 )}

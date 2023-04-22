@@ -23,6 +23,8 @@ const uploadImage = "UPDATE post SET petimage= $1 WHERE id=$2";
 const searchBar =
     "select * from post where petcity ILIKE $1 OR petcategory ILIKE $1 OR petstate ILIKE $1 OR petcountry ILIKE $1 OR description ILIKE $1;";
 
+const getPetInfo = "SELECT * FROM post WHERE id=$1";
+
 const postAPet = (module.exports = {
     getUser,
     checkEmailExists,
@@ -34,4 +36,5 @@ const postAPet = (module.exports = {
     deletePost,
     uploadImage,
     searchBar,
+    getPetInfo,
 });
