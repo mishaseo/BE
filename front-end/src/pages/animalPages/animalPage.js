@@ -3,9 +3,12 @@ import AnimalCard from "../../components/animalCard";
 import axios from "axios";
 import Header from "../../header";
 import "./displayPage.css";
+import ReactPaginate from "react-paginate";
 
 function AnimalPage(props) {
     const [data, setData] = useState([]);
+    const [currentPage, setCurrentPage] = useState(0);
+
     //-----------------------------SEARCHING---------------------------------------------
     let search = false;
     if (props.animal === "search") {
@@ -56,6 +59,20 @@ function AnimalPage(props) {
         }
         // the blank array below causes this callback to be executed only once on component load
     }, []);
+
+    const PER_PAGE = 10;
+    const offset = currentPage * PER_PAGE;
+    const currentPageData = data
+        .slice(offset, offset + PER_PAGE)
+        .map((item) => (
+            <AnimalCard key={item.id} details={item} type="animalPage" />
+        ));
+    const pageCount = Math.ceil(data.length / PER_PAGE);
+
+    function handlePageClick({ selected: selectedPage }) {
+        setCurrentPage(selectedPage);
+    }
+
     return (
         <div>
             <Header />
@@ -66,7 +83,7 @@ function AnimalPage(props) {
                     <h1 id="heading">{category} For Sale</h1>
                 )}
             </div>
-            <section id="animalCard">
+            {/* <section id="animalCard">
                 {data.map((item) => (
                     <AnimalCard
                         key={item.id}
@@ -74,7 +91,19 @@ function AnimalPage(props) {
                         type="animalPage"
                     />
                 ))}
-            </section>
+            </section> */}
+            <ReactPaginate
+                previousLabel={"← Previous"}
+                nextLabel={"Next →"}
+                pageCount={pageCount}
+                onPageChange={handlePageClick}
+                containerClassName={"pagination"}
+                previousLinkClassName={"pagination__link"}
+                nextLinkClassName={"pagination__link"}
+                disabledClassName={"pagination__link--disabled"}
+                activeClassName={"pagination__link--active"}
+            />
+            <section id="animalCard">{currentPageData}</section>
         </div>
     );
 }

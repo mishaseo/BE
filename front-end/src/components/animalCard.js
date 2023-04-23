@@ -35,6 +35,9 @@ function AnimalCard(props) {
             </Link>
             <Card.Body>
                 <Card.Title>{props.details.petname}</Card.Title>
+                <Card.Text style={{ textTransform: "capitalize" }}>
+                    {props.details.petcategory}
+                </Card.Text>
                 <Card.Text>{props.details.description}</Card.Text>
                 <Card.Text>
                     Location: {props.details.petcity}, {props.details.petstate}
