@@ -23,7 +23,8 @@ const useStyles = makeStyles((theme) => ({
     },
     gridList: {
         width: 1000,
-        height: 1000,
+        height: "100%",
+        paddingBottom: "30px",
     },
     titleBar: {
         background:
