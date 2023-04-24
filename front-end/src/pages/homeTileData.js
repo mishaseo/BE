@@ -1,6 +1,6 @@
 const homeTileData = [
     {
-        img: "https://res.cloudinary.com/mishaprojectcloud/image/upload/v1676923741/fetchapet/dog_pcev5e.jpg",
+        img: "https://res.cloudinary.com/mishaprojectcloud/image/upload/v1682350958/fetchapet/IMG_1317_1_ktsj2a.jpg",
         title: "Dogs",
         info: "https://en.wikipedia.org/wiki/Dog",
         link: "/dog",
