@@ -30,7 +30,7 @@ const homeTileData = [
         link: "/rabbit",
     },
     {
-        img: "https://res.cloudinary.com/mishaprojectcloud/image/upload/v1676924800/fetchapet/turtule_kzocon.jpg",
+        img: "https://res.cloudinary.com/mishaprojectcloud/image/upload/v1681409528/fetchapet/logo_rmxfpd.jpg",
         title: "Other",
         info: "https://en.wikipedia.org/wiki/Animal",
         link: "/other",
