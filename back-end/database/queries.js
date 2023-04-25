@@ -21,7 +21,7 @@ const deletePost = "DELETE FROM post WHERE id=$1";
 const uploadImage = "UPDATE post SET petimage= $1 WHERE id=$2";
 
 const searchBar =
-    "select * from post where petcity ILIKE $1 OR petcategory ILIKE $1 OR petstate ILIKE $1 OR petcountry ILIKE $1 OR description ILIKE $1;";
+    "select * from post where petname ILIKE $1 OR petcity ILIKE $1 OR petcategory ILIKE $1 OR petstate ILIKE $1 OR petcountry ILIKE $1 OR description ILIKE $1;";
 
 const getPetInfo = "SELECT * FROM post WHERE id=$1";
 
